@@ -24,7 +24,7 @@ RUN \
   mkdir -p /usr/local/taiga && \
   git clone https://github.com/taigaio/taiga-front-dist.git /usr/local/taiga/taiga-front-dist && \
   cd /usr/local/taiga/taiga-front-dist && \
-  git checkout stable
+  git checkout master
 
 # Configuration and Start scripts
 ADD ./configure /usr/local/taiga/configure
