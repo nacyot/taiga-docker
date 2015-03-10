@@ -23,7 +23,7 @@ cat > /usr/local/taiga/taiga-front-dist/dist/js/conf.json <<EOL
   "termsOfServiceUrl": null,
   "maxUploadFileSize": null,
   "gitHubClientId": null,
-  "contribPlugins": [ ]
+  "contribPlugins": ["/js/slack.js"]
 }
 
 EOL

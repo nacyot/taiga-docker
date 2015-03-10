@@ -26,6 +26,10 @@ RUN \
   cd /usr/local/taiga/taiga-front-dist && \
   git checkout master
 
+RUN \
+  cd /usr/local/taiga/taiga-front-dist/dist/js \
+  wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-slack/stable/front/dist/slack.js"
+
 # Configuration and Start scripts
 ADD ./configure /usr/local/taiga/configure
 ADD ./start /usr/local/taiga/start
