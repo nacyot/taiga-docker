@@ -5,7 +5,7 @@ MAINTAINER Hylke Visser <htdvisser@gmail.com>
 # Install dependencies
 RUN \
   apt-get update -qq && \
-  apt-get install -y netcat && \
+  apt-get install -y netcat wget && \
   rm -rf /var/lib/apt/lists/* && \
   pip install circus gunicorn
 
