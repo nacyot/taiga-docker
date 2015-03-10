@@ -8,7 +8,7 @@ RUN echo "deb http://nginx.org/packages/mainline/debian/ wheezy nginx" >> /etc/a
 
 ENV NGINX_VERSION 1.7.10-1~wheezy
 
-RUN apt-get update && apt-get install -y git nginx=${NGINX_VERSION} && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y git wget nginx=${NGINX_VERSION} && rm -rf /var/lib/apt/lists/*
 
 # NginX Configuration
 ADD nginx.conf /etc/nginx/nginx.conf
@@ -27,7 +27,7 @@ RUN \
   git checkout master
 
 RUN \
-  cd /usr/local/taiga/taiga-front-dist/dist/js \
+  cd /usr/local/taiga/taiga-front-dist/dist/js  && \
   wget "https://raw.githubusercontent.com/taigaio/taiga-contrib-slack/stable/front/dist/slack.js"
 
 # Configuration and Start scripts
