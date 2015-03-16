@@ -31,6 +31,9 @@ ADD ./configure /usr/local/taiga/configure
 ADD ./start /usr/local/taiga/start
 RUN chmod +x /usr/local/taiga/configure /usr/local/taiga/start
 
+RUN ln -sf /dev/stdout /usr/local/taiga/logs/gunicorn.stdout.log &&\
+  ln -sf /dev/stderr /usr/local/taiga/logs/gunicorn.stderr.log
+
 VOLUME /usr/local/taiga/media
 VOLUME /usr/local/taiga/static
 VOLUME /usr/local/taiga/logs
