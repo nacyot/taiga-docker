@@ -76,6 +76,7 @@ args = -w 3 -t 60 --pythonpath=. -b 0.0.0.0:8000 taiga.wsgi
 numprocesses = 1
 autostart = true
 send_hup = true
+copy_env = true
 stdout_stream.class = StdoutStream
 stderr_stream.class = StdoutStream
 

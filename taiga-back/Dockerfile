@@ -24,7 +24,7 @@ RUN \
 RUN \
   useradd -d /usr/local/taiga taiga
 
-RUN pip install taiga-contrib-slack
+RUN pip install taiga-contrib-slack taiga-contrib-ldap-auth ldap3
   
 # Add Taiga Configuration
 ADD ./local.py /usr/local/taiga/taiga-back/settings/local.py
@@ -40,6 +40,10 @@ RUN ln -sf /dev/stdout /usr/local/taiga/logs/gunicorn.stdout.log &&\
 VOLUME /usr/local/taiga/media
 VOLUME /usr/local/taiga/static
 VOLUME /usr/local/taiga/logs
+
+ENV LDAP_SERVER ldap://ldap.example.com
+ENV LDAP_DN_FORMAT uid={username},cn=users,dc=example,dc=com
+ENV LDAP_BASE_EMAIL @example.com
 
 EXPOSE 8000
 
