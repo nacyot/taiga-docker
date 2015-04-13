@@ -2,7 +2,7 @@ FROM nginx:1.7
 
 MAINTAINER Hylke Visser <htdvisser@gmail.com>
 
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y git curl wget && rm -rf /var/lib/apt/lists/*
 RUN \
   curl -sL https://deb.nodesource.com/setup | bash - &&\
   apt-get install -y nodejs
