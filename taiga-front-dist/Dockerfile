@@ -8,7 +8,11 @@ RUN echo "deb http://nginx.org/packages/mainline/debian/ wheezy nginx" >> /etc/a
 
 ENV NGINX_VERSION 1.7.10-1~wheezy
 
-RUN apt-get update && apt-get install -y git wget nginx=${NGINX_VERSION} && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y git curl wget nginx=${NGINX_VERSION} && rm -rf /var/lib/apt/lists/*
+RUN \
+  curl -sL https://deb.nodesource.com/setup | bash - &&\
+  apt-get install -y nodejs
+RUN apt-get -y install build-essential libpng-dev
 
 # NginX Configuration
 ADD nginx.conf /etc/nginx/nginx.conf
@@ -22,9 +26,19 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 # Install taiga-front-dist
 RUN \
   mkdir -p /usr/local/taiga && \
-  git clone https://github.com/taigaio/taiga-front-dist.git /usr/local/taiga/taiga-front-dist && \
-  cd /usr/local/taiga/taiga-front-dist && \
-  git checkout master
+  wget https://github.com/taigaio/taiga-front/archive/1.6.0.tar.gz -O /tmp/1.6.0.tar.gz &&\
+  tar xvf /tmp/1.6.0.tar.gz -C /tmp &&\
+  mv /tmp/taiga-front-1.6.0 /usr/local/taiga/taiga-front
+
+RUN \
+  cd /usr/local/taiga/taiga-front &&\
+  npm install -g npm@2.7.1 &&\
+  npm install -g gulp bower&&\
+  npm install &&\
+  bower --allow-root install &&\ 
+  gulp deploy &&\
+  mkdir -p /usr/local/taiga/taiga-front-dist && \  
+  mv /usr/local/taiga/taiga-front/dist /usr/local/taiga/taiga-front-dist
 
 RUN \
   cd /usr/local/taiga/taiga-front-dist/dist/js  && \

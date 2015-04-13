@@ -5,21 +5,24 @@ MAINTAINER Hylke Visser <htdvisser@gmail.com>
 # Install dependencies
 RUN \
   apt-get update -qq && \
-  apt-get install -y netcat&& \
+  apt-get install -y netcat wget && \
   rm -rf /var/lib/apt/lists/* && \
   pip install circus gunicorn
 
 # Install taiga-back
 RUN \
-  mkdir -p /usr/local/taiga && \
-  useradd -d /usr/local/taiga taiga && \
-  git clone https://github.com/taigaio/taiga-back.git /usr/local/taiga/taiga-back && \
+  wget https://github.com/taigaio/taiga-back/archive/1.6.0.tar.gz -O /tmp/1.6.0.tar.gz &&\
+  tar xvf /tmp/1.6.0.tar.gz -C /tmp &&\
+  mkdir -p /usr/local/taiga &&\
+  mv /tmp/taiga-back-1.6.0 /usr/local/taiga/taiga-back &&\
   mkdir /usr/local/taiga/media /usr/local/taiga/static /usr/local/taiga/logs && \
   cd /usr/local/taiga/taiga-back && \
-  git checkout master && \
   pip install -r requirements.txt && \
   touch /usr/local/taiga/taiga-back/settings/dockerenv.py && \
   touch /usr/local/taiga/circus.ini
+
+RUN \
+  useradd -d /usr/local/taiga taiga
 
 RUN pip install taiga-contrib-slack
   
