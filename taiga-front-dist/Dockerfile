@@ -20,9 +20,9 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 # Install taiga-front-dist
 RUN \
   mkdir -p /usr/local/taiga && \
-  wget https://github.com/taigaio/taiga-front/archive/1.6.0.tar.gz -O /tmp/1.6.0.tar.gz &&\
-  tar xvf /tmp/1.6.0.tar.gz -C /tmp &&\
-  mv /tmp/taiga-front-1.6.0 /usr/local/taiga/taiga-front
+  wget https://github.com/taigaio/taiga-front/archive/1.8.0.tar.gz -O /tmp/1.8.0.tar.gz &&\
+  tar xvf /tmp/1.8.0.tar.gz -C /tmp &&\
+  mv /tmp/taiga-front-1.8.0 /usr/local/taiga/taiga-front
 
 RUN \
   cd /usr/local/taiga/taiga-front &&\
